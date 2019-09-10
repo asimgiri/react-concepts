@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Source Sans Pro', sans-serif;
+            background: #F8F9FA;
+        }
+
+        .wrapper {
+            width: fit-content;
+            height: 400px;
+            margin: auto;
+            overflow-y: auto;
+            margin-top: 1rem;
+        }
+
+        .search_div {
+            text-align: center;
+            margin-top: 3rem;
+        }
+
+        input[type='search'] {
+            width: 366px;
+            padding: 5px;
+            font-family: 'Source Sans Pro', sans-serif;
+        }
+
+        .contact:first-child {
+            margin-top: 0;
+        }
+
+        .contact {
+            display: flex;
+            width: 350px;
+            margin: 1rem auto;
+            padding: 20px;
+            background: #fff;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+            transition: all 0.3s cubic-bezier(.25, .8, .25, 1);
+            cursor: pointer;
+        }
+
+        .contact:hover {
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.25), 0 2px 12px rgba(0, 0, 0, 0.22);
+        }
+
+        ul {
+            margin-left: 12px;
+            text-align: left;
+        }
+
+        ul p {
+            margin: 5px 0;
+            font-size: 14px;
+        }
+
+        p:nth-child(even) {
+            font-weight: bold;
+            color: rgb(0, 123, 255);
+        }
+
+        p:last-child {
+            color: #666;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="search_div">
+        <input type="search" placeholder="eg. John Doe" id="search" onkeydown="c.setKeyword().findMatch()" </div> <div
+            class="wrapper">
+
+    </div>
+
+
+    <script>
+
+        class Details {
+            constructor(name, phone, address) {
+                this.name = name,
+                    this.phone = phone,
+                    this.address = address
+            }
+        }
+
+        class Contact {
+            constructor() {
+                this.contactList = [],
+                    this.searchKeyword = ''
+            }
+
+            addContact(name, phone, address) {
+                let details = new Details(name, phone, address);
+                this.contactList.push(details);
+            }
+
+            generateView() {
+
+                let data = this.generateSearchData();
+                console.log(data);
+
+                document.querySelector('.wrapper').innerHTML = '';
+
+                for (let i = 0; i < data.length; i++) {
+                    let outerElem = document.createElement('div');
+                    outerElem.setAttribute('class', 'contact');
+
+                    let imgElem = document.createElement('img');
+                    imgElem.setAttribute('src', 'https://via.placeholder.com/100')
+
+                    let ulElem = document.createElement('ul');
+
+                    let h3Elem = document.createElement('h3');
+                    h3Elem.innerText = `${data[i].name}`;
+
+                    let pElem = document.createElement('p');
+                    pElem.innerText = `${data[i].phone}`;
+
+                    let pElem2 = document.createElement('p');
+                    pElem2.innerText = `${data[i].address}`;
+
+                    ulElem.appendChild(h3Elem);
+                    ulElem.appendChild(pElem);
+                    ulElem.appendChild(pElem2);
+
+                    outerElem.appendChild(imgElem);
+                    outerElem.appendChild(ulElem);
+
+                    document.querySelector('.wrapper').appendChild(outerElem);
+                }
+
+            }
+
+            setKeyword() {
+                let v = document.querySelector('#search').value;
+                this.searchKeyword = v;
+                return this;
+            }
+
+            findMatch() {
+                console.log('Keyword : ' + this.searchKeyword);
+                this.generateView(this.searchKeyword);
+            }
+
+            generateSearchData() {
+
+                /**************** BINDING ISSUES ***********************/
+
+                //  return this.contactList.filter(function (value) {
+                //     return value.name.includes(this.searchKeyword) || value.address.includes(this.searchKeyword);
+                // })  
+
+                /**************** BINDING ISSUES *********************/
+
+
+
+                /*******************************************************
+                
+                FILTERING AN ARRAY USING ARROW FUNCTION
+
+                arr = [1, 2, 3, 4, 5]
+                
+                let filteredArr = arr.filter((value) => {
+                    return value % 2 == 0
+                }) 
+                
+                *******************************************************/
+
+
+                return this.contactList.filter((value, index) => {
+                    return value.name.includes(this.searchKeyword);
+                })
+
+
+            }
+
+
+
+        }
+
+        let c = new Contact();
+        c.addContact('Ram Khatri', '+977-9843271876', 'Kathmandu, Nepal');
+        c.addContact('Shyam Pokharel', '+977-9851098534', 'Bhaktapur, Nepal');
+        c.addContact('Riyasha KC', '+977-9841098534', 'Bhaktapur, Nepal');
+        c.addContact('Dikshya Thapa', '+977-9849203657', 'Chitwan, Nepal');
+        c.addContact('Dev Gharti', '+977-9841673988', 'Chitwan, Nepal');
+        c.generateView();
+    </script>
+
+
+</body>
+
+</html>
