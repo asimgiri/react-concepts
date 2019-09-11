@@ -16,45 +16,21 @@ class ContactMgr extends Component {
         }, () => { console.log('Keyword : ', this.state.keyword) })
     }
 
-    // generateContact = () => {
-    //     for(var i = 0; i < this.props.items.length; i++){
-    //         // console.log(this.props.items)
-    //         console.log(this.props.items[i].name)
-    //         console.log('Keyword : ', this.state.keyword)
-    //     }    
-    // }
-
     findMatch = () => {
         for (let i = 0; i < this.props.items.length; i++) {
             if (this.props.items[i].name.includes(this.state.keyword)) {
                 console.log('Match')
                 return (
                     <Contact
-                        img="https://lorempixel.com/70/70"
-                        name="Fullname"
-                        mob="+977-9851086273"
-                        location="Bhaktapur, Nepal"
+                        img={this.props.items[i].img}
+                        name={this.props.items[i].name}
+                        mob={this.props.items[i].mob}
+                        location={this.props.items[i].location}
                     />
                 )
             }
         }
     }
-
-    // generateContact = () => {
-    //     {
-    //         this.props.items.map((value) => {
-    //             return (
-    //                 <Contact
-    //                     img={value.img}
-    //                     name={value.name}
-    //                     mob={value.mob}
-    //                     location={value.location}
-    //                 />
-    //             )
-    //         })
-    //     }
-    // }
-
 
     render() {
         return (
@@ -70,18 +46,21 @@ class ContactMgr extends Component {
                         </div>
 
 
-                    ) : null}
+                    ) : (
+                        <div>
+                            {this.props.items.map((value) => {
+                                return (
+                                    <Contact
+                                        img={value.img}
+                                        name={value.name}
+                                        mob={value.mob}
+                                        location={value.location}
+                                    />
+                                )
+                            })}
+                        </div>
 
-                {this.props.items.map((value) => {
-                    return (
-                        <Contact
-                            img={value.img}
-                            name={value.name}
-                            mob={value.mob}
-                            location={value.location}
-                        />
-                    )
-                })}
+                    )}
             </div>
         )
     }

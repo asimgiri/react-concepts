@@ -9,7 +9,7 @@ class Contact extends Component {
                     <h3>{this.props.name}</h3>
                     <p className="mob">{this.props.mob}</p>
                     <p>{this.props.location}</p>
-          >      </div>
+                </div>
             </div>
         )
     }

@@ -5,6 +5,8 @@ import Sample from './components/StateMgmt/Sample';
 import ContactMgr from './components/ContactManager/ContactMgr';
 import MouseEvent from './components/DOM/MouseEvent';
 import Clock from './components/DOM/Clock';
+import Modal from './components/DOM/Modal';
+import Question from './components/Quiz/Question';
 
 var taskItems = [
   {
@@ -38,6 +40,7 @@ var contactList = [
   }
 ]
 
+
 function App() {
   return (
     <div className="App">
@@ -45,11 +48,18 @@ function App() {
         items = {taskItems}
       />
       <Sample /> */}
-      {/* <ContactMgr 
+      <ContactMgr 
         items={contactList}
-      /> */}
+      />
 
       <Clock />
+{/* 
+      <Modal
+        title="This is a Modal Title"
+        content="Lorem ipsum dolor, sit amet consectetur adipisicing elit. Tempore exercitationem magni cum provident, laudantium consectetur sequi accusamus velit id ducimus modi asperiores perferendis optio magnam similique est praesentium commodi? Modi culpa deserunt optio itaque illum asperiores iste adipisci necessitatibus quas?"
+      />
+
+      <Question /> */}
 
     </div>
   );
